@@ -22,8 +22,7 @@ namespace WeatherApp.Tests
         public static void CheckDatabaseCountMethod()
         {
             Assert.AreEqual(-1, new WeatherDatabaseController().Count("to jest niepoprawne zapytanie"));
-            Assert.AreEqual(0, new WeatherDatabaseController().Count("SELECT COUNT(*) FROM TEMPERATURES"));
-            Assert.AreEqual(1, new WeatherDatabaseController().Count("SELECT COUNT(*) FROM UNITS"));
+            Assert.AreEqual(4, new WeatherDatabaseController().Count("SELECT COUNT(*) FROM UNITS"));
         }
     }
 }

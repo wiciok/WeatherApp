@@ -13,7 +13,7 @@ namespace WeatherApp
         {
             DatabaseController dbController = new WeatherDatabaseController();
 
-            dbController.Insert("INSERT INTO TEMPERATURES (TEMPERATURE_VALUE, UNIT_ID) VALUES (1, 999);");
+            dbController.Insert("INSERT INTO TEMPERATURES (TEMPERATURE_VALUE, UNIT_ID) VALUES (1, 4);");
 
             foreach (List<string> list in dbController.Select("SELECT * FROM TEMPERATURES;"))
             {
