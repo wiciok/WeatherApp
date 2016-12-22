@@ -14,5 +14,6 @@ namespace WeatherApp.API
 
         protected abstract void Initialize(string city, string country);
         public abstract void Parse();
+        public abstract void Insert();
     }
 }

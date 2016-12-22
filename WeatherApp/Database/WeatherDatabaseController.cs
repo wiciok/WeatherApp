@@ -164,6 +164,118 @@ namespace WeatherApp.Database
                 return list;
         }
 
+        public override List<string>[] SelectCountryId(string query)
+        {
+            if (!query.ToLower().Contains("select"))
+            {
+                Console.WriteLine("Invalid format");
+                return null;
+            }
+
+            List<string>[] list = new List<string>[1];
+            list[0] = new List<string>();
+
+            if (OpenConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                    list[0].Add(dataReader["COUNTRY_ID"] + "");
+
+                dataReader.Close();
+                CloseConnection();
+
+                return list;
+            }
+            else
+                return list;
+        }
+
+        public override List<string>[] SelectUnitId(string query)
+        {
+            if (!query.ToLower().Contains("select"))
+            {
+                Console.WriteLine("Invalid format");
+                return null;
+            }
+
+            List<string>[] list = new List<string>[1];
+            list[0] = new List<string>();
+
+            if (OpenConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                    list[0].Add(dataReader["UNIT_ID"] + "");
+
+                dataReader.Close();
+                CloseConnection();
+
+                return list;
+            }
+            else
+                return list;
+        }
+
+        public override List<string>[] SelectTemperatureId(string query)
+        {
+            if (!query.ToLower().Contains("select"))
+            {
+                Console.WriteLine("Invalid format");
+                return null;
+            }
+
+            List<string>[] list = new List<string>[1];
+            list[0] = new List<string>();
+
+            if (OpenConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                    list[0].Add(dataReader["TEMPERATURE_ID"] + "");
+
+                dataReader.Close();
+                CloseConnection();
+
+                return list;
+            }
+            else
+                return list;
+        }
+
+        public override List<string>[] SelectWindId(string query)
+        {
+            if (!query.ToLower().Contains("select"))
+            {
+                Console.WriteLine("Invalid format");
+                return null;
+            }
+
+            List<string>[] list = new List<string>[1];
+            list[0] = new List<string>();
+
+            if (OpenConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                    list[0].Add(dataReader["WIND_ID"] + "");
+
+                dataReader.Close();
+                CloseConnection();
+
+                return list;
+            }
+            else
+                return list;
+        }
+
         public override int Count(string query)
         {
             int count = -1;

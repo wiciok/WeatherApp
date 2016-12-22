@@ -24,6 +24,10 @@ namespace WeatherApp.Database
         public abstract void Update(string query);
         public abstract void Delete(string query);
         public abstract List<string>[] Select(string query);
+        public abstract List<string>[] SelectCountryId(string query);
+        public abstract List<string>[] SelectUnitId(string query);
+        public abstract List<string>[] SelectTemperatureId(string query);
+        public abstract List<string>[] SelectWindId(string query);
         public abstract int Count(string query);
     }
 }
