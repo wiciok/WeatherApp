@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\DatabaseController.cs" />
+    <Compile Include="Database\SingletonDatabaseController.cs" />
     <Compile Include="Database\WeatherDatabaseController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
