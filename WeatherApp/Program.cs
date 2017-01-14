@@ -13,34 +13,39 @@ namespace WeatherApp
         static void Main(string[] args)
         {
             //SingletonDatabaseController.Instance.DbController.Insert("INSERT INTO TEMPERATURE (TEMPERATURE_VALUE, UNIT_ID) VALUES (1, 4);");
+            try
+            {
+                string city = Console.ReadLine();
+                string country = Console.ReadLine();
 
-            string city = Console.ReadLine();
-            string country = Console.ReadLine();
+                APIController api = new APIWeatherController(city, country);
+                api.Parse();
+                api.Insert();
 
-            APIController api = new APIWeatherController(city, country);
-            api.Parse();
-            api.Insert();
 
-            
-            Console.WriteLine(SingletonApiParser.Instance.Parser.cityId);
-            Console.WriteLine(SingletonApiParser.Instance.Parser.cityName);
-            Console.WriteLine(SingletonApiParser.Instance.Parser.cityCoordX);
-            Console.WriteLine(SingletonApiParser.Instance.Parser.cityCoordY);
-            Console.WriteLine(SingletonApiParser.Instance.Parser.countryTag);
-            Console.WriteLine(SingletonApiParser.Instance.Parser.sunrise);
-            Console.WriteLine(SingletonApiParser.Instance.Parser.sunset);
-            Console.WriteLine(SingletonApiParser.Instance.Parser.temperatureValue);
-            Console.WriteLine(SingletonApiParser.Instance.Parser.unitName);
-            Console.WriteLine(SingletonApiParser.Instance.Parser.humidity);
-            Console.WriteLine(SingletonApiParser.Instance.Parser.pressure);
-            Console.WriteLine(SingletonApiParser.Instance.Parser.windSpeed);
-            Console.WriteLine(SingletonApiParser.Instance.Parser.windName);
-            Console.WriteLine(SingletonApiParser.Instance.Parser.windDirection);
-            Console.WriteLine(SingletonApiParser.Instance.Parser.windDirectionCode);
-            Console.WriteLine(SingletonApiParser.Instance.Parser.windDirectionName);
-            Console.WriteLine(SingletonApiParser.Instance.Parser.cloudsName);
-            Console.WriteLine(SingletonApiParser.Instance.Parser.lastUpdate);
-            
+                Console.WriteLine(SingletonApiParser.Instance.Parser.CityId);
+                Console.WriteLine(SingletonApiParser.Instance.Parser.CityName);
+                Console.WriteLine(SingletonApiParser.Instance.Parser.CityCoordX);
+                Console.WriteLine(SingletonApiParser.Instance.Parser.CityCoordY);
+                Console.WriteLine(SingletonApiParser.Instance.Parser.CountryTag);
+                Console.WriteLine(SingletonApiParser.Instance.Parser.Sunrise);
+                Console.WriteLine(SingletonApiParser.Instance.Parser.Sunset);
+                Console.WriteLine(SingletonApiParser.Instance.Parser.TemperatureValue);
+                Console.WriteLine(SingletonApiParser.Instance.Parser.UnitName);
+                Console.WriteLine(SingletonApiParser.Instance.Parser.Humidity);
+                Console.WriteLine(SingletonApiParser.Instance.Parser.Pressure);
+                Console.WriteLine(SingletonApiParser.Instance.Parser.WindSpeed);
+                Console.WriteLine(SingletonApiParser.Instance.Parser.WindName);
+                Console.WriteLine(SingletonApiParser.Instance.Parser.WindDirection);
+                Console.WriteLine(SingletonApiParser.Instance.Parser.WindDirectionCode);
+                Console.WriteLine(SingletonApiParser.Instance.Parser.WindDirectionName);
+                Console.WriteLine(SingletonApiParser.Instance.Parser.CloudsName);
+                Console.WriteLine(SingletonApiParser.Instance.Parser.LastUpdate);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             Console.ReadLine();
         }

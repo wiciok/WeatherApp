@@ -16,18 +16,14 @@ namespace WeatherApp.Database
         protected string password;
 
         protected abstract void Initialize();
-        protected abstract string CreateConnectionString();
         protected abstract bool OpenConnection();
         protected abstract bool CloseConnection();
 
         public abstract void Insert(string query);
         public abstract void Update(string query);
         public abstract void Delete(string query);
-        public abstract List<string>[] Select(string query);
-        public abstract List<string>[] SelectCountryId(string query);
-        public abstract List<string>[] SelectUnitId(string query);
-        public abstract List<string>[] SelectTemperatureId(string query);
-        public abstract List<string>[] SelectWindId(string query);
+        public abstract List<string>[] SelectMultipleAttributesRecords(string query, params string[] attribute);
+        public abstract string SelectSingleAttributeRecord(string query, string attributeName);
         public abstract int Count(string query);
     }
 }

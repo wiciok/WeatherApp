@@ -14,8 +14,8 @@ namespace WeatherApp.Tests
         [Test]
         public static void CheckDatabaseSelectMethod()
         {
-            Assert.IsNull(new WeatherDatabaseController().Select("to nie jest poprawne zapytanie"));
-            Assert.IsNotNull(new WeatherDatabaseController().Select("SELECT * FROM TEMPERATURE"));
+            Assert.IsNull(new WeatherDatabaseController().SelectMultipleAttributesRecords("to nie jest poprawne zapytanie"));
+            Assert.IsNotNull(new WeatherDatabaseController().SelectMultipleAttributesRecords("SELECT * FROM TEMPERATURE"));
         }
 
         [Test]

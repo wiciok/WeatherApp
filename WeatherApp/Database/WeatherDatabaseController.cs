@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
+
 namespace WeatherApp.Database
 {
     sealed class WeatherDatabaseController : DatabaseController
@@ -25,7 +26,7 @@ namespace WeatherApp.Database
             connection = new MySqlConnection(CreateConnectionString());
         }
 
-        protected override string CreateConnectionString()
+        private string CreateConnectionString()
         {
             StringBuilder dBConnectionStringBuilder = new StringBuilder();
             dBConnectionStringBuilder.Append("SERVER=" + server + ";");
@@ -33,13 +34,11 @@ namespace WeatherApp.Database
             dBConnectionStringBuilder.Append("UID=" + uid + ";");
             dBConnectionStringBuilder.Append("PASSWORD=" + password + ";");
 
-
             return dBConnectionStringBuilder.ToString();
         }
 
         protected override bool OpenConnection()
         {
-            //todo: rethrow wyjątków
             try
             {
                 connection.Open();
@@ -47,30 +46,30 @@ namespace WeatherApp.Database
             }
             catch (MySqlException ex)
             {
+                string errString;
+
                 // Switch catches most common errors
                 // code error 0 - cannot connect to server
                 // code error 1045 - invalid username and/ord passowrd
 
                 switch (ex.Number)
                 {
-                    case 0:
-                        Console.WriteLine("Cannot connect to server");
+                    case 0:;
+                        errString = "Cannot connect to server";
                         break;
                     case 1045:
-                        Console.WriteLine("Invalid username and/or password");
+                        errString = "Invalid username and/or password";
                         break;
                     default:
-                        Console.WriteLine("Unknown error");
+                        errString = "Unknown DB connection error";
                         break;
                 }
-
-                return false;
+                throw new ApplicationException(errString, ex);
+                
             }
         }
-
         protected override bool CloseConnection()
         {
-            //todo: rethrow wyjątków
             try
             {
                 connection.Close();
@@ -78,8 +77,7 @@ namespace WeatherApp.Database
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
-                return false;
+                throw new ApplicationException(ex.Message, ex);
             }
         }
 
@@ -101,20 +99,19 @@ namespace WeatherApp.Database
 
         public override void Insert(string query)
         {
-            QueryExecute(query,"insert into");
+            QueryExecute(query, "insert into");
         }
-
         public override void Update(string query)
         {
-            QueryExecute(query,"update");
+            QueryExecute(query, "update");
         }
-
         public override void Delete(string query)
         {
             QueryExecute(query, "delete from");
         }
 
-        public override List<string>[] Select(string query)
+
+        public override List<string>[] SelectMultipleAttributesRecords(string query, params string[] attribute)
         {
             if (!query.ToLower().Contains("select"))
             {
@@ -122,10 +119,9 @@ namespace WeatherApp.Database
                 return null;
             }
 
-            List<string>[] list = new List<string>[3];
-            list[0] = new List<string>();
-            list[1] = new List<string>();
-            list[2] = new List<string>();
+            List<string>[] list = new List<string>[attribute.Length];
+            for (var i=0; i < list.Length; i++)
+                list[i]=new List<string>();
 
             if (OpenConnection())
             {
@@ -134,21 +130,16 @@ namespace WeatherApp.Database
 
                 while (dataReader.Read())
                 {
-                    list[0].Add(dataReader["TEMPERATURE_ID"] + "");
-                    list[1].Add(dataReader["TEMPERATURE_VALUE"] + "");
-                    list[2].Add(dataReader["UNIT_ID"] + "");
+                    for (var i = 0; i < list.Length; i++)
+                        list[i].Add(dataReader[attribute[i]] + "");
                 }
 
                 dataReader.Close();
                 CloseConnection();
-
-                return list;
             }
-            else
-                return list;
+            return list;
         }
-
-        public override List<string>[] SelectCountryId(string query)
+        public override string SelectSingleAttributeRecord(string query, string attributeName)
         {
             if (!query.ToLower().Contains("select"))
             {
@@ -156,110 +147,21 @@ namespace WeatherApp.Database
                 return null;
             }
 
-            List<string>[] list = new List<string>[1];
-            list[0] = new List<string>();
+            string retString = null;
 
             if (OpenConnection())
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                while (dataReader.Read())
-                    list[0].Add(dataReader["COUNTRY_ID"] + "");
+                dataReader.Read();
+                retString = dataReader[attributeName] + "";
 
                 dataReader.Close();
                 CloseConnection();
-
-                return list;
             }
-            else
-                return list;
+            return retString;
         }
-
-        public override List<string>[] SelectUnitId(string query)
-        {
-            if (!query.ToLower().Contains("select"))
-            {
-                Console.WriteLine("Invalid format");
-                return null;
-            }
-
-            List<string>[] list = new List<string>[1];
-            list[0] = new List<string>();
-
-            if (OpenConnection())
-            {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                MySqlDataReader dataReader = cmd.ExecuteReader();
-
-                while (dataReader.Read())
-                    list[0].Add(dataReader["UNIT_ID"] + "");
-
-                dataReader.Close();
-                CloseConnection();
-
-                return list;
-            }
-            else
-                return list;
-        }
-
-        public override List<string>[] SelectTemperatureId(string query)
-        {
-            if (!query.ToLower().Contains("select"))
-            {
-                Console.WriteLine("Invalid format");
-                return null;
-            }
-
-            List<string>[] list = new List<string>[1];
-            list[0] = new List<string>();
-
-            if (OpenConnection())
-            {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                MySqlDataReader dataReader = cmd.ExecuteReader();
-
-                while (dataReader.Read())
-                    list[0].Add(dataReader["TEMPERATURE_ID"] + "");
-
-                dataReader.Close();
-                CloseConnection();
-
-                return list;
-            }
-            else
-                return list;
-        }
-
-        public override List<string>[] SelectWindId(string query)
-        {
-            if (!query.ToLower().Contains("select"))
-            {
-                Console.WriteLine("Invalid format");
-                return null;
-            }
-
-            List<string>[] list = new List<string>[1];
-            list[0] = new List<string>();
-
-            if (OpenConnection())
-            {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                MySqlDataReader dataReader = cmd.ExecuteReader();
-
-                while (dataReader.Read())
-                    list[0].Add(dataReader["WIND_ID"] + "");
-
-                dataReader.Close();
-                CloseConnection();
-
-                return list;
-            }
-            else
-                return list;
-        }
-
         public override int Count(string query)
         {
             int count = -1;
