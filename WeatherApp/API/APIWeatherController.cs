@@ -163,11 +163,13 @@ namespace WeatherApp.API
         private void InsertTemperature(SingletonDatabaseController dbInstance, SingletonApiParser apiInstance)
         {
             List<string>[] unit_id = dbInstance.DbController.SelectUnitId("SELECT UNIT_ID FROM UNITS WHERE UNIT_NAME='" + apiInstance.Parser.unitName + "'");
+            //todo: wyjątek jeśli zwrócono nulla!
 
-            string query = String.Format("INSERT INTO TEMPERATURES (TEMPERATURE_VALUE, UNIT_ID) VALUES ('{0}', '{1}')",
+
+            string query = String.Format("INSERT INTO TEMPERATURE (TEMPERATURE_VALUE, UNIT_ID) VALUES ('{0}', '{1}')",
                 apiInstance.Parser.temperatureValue, unit_id[0][0]);
 
-            if (dbInstance.DbController.Count("SELECT COUNT(*) FROM TEMPERATURES WHERE TEMPERATURE_VALUE='" + apiInstance.Parser.temperatureValue +"'") == 0)
+            if (dbInstance.DbController.Count("SELECT COUNT(*) FROM TEMPERATURE WHERE TEMPERATURE_VALUE='" + apiInstance.Parser.temperatureValue +"'") == 0)
                 dbInstance.DbController.Insert(query);
         }
 
@@ -189,7 +191,7 @@ namespace WeatherApp.API
                 apiInstance.Parser.windSpeed, apiInstance.Parser.windName, apiInstance.Parser.windDirection);
 
             List<string>[] wind_id = dbInstance.DbController.SelectWindId(wind_query);
-            List<string>[] temperature_id = dbInstance.DbController.SelectTemperatureId("SELECT TEMPERATURE_ID FROM TEMPERATURES WHERE TEMPERATURE_VALUE='" + apiInstance.Parser.temperatureValue + "'");
+            List<string>[] temperature_id = dbInstance.DbController.SelectTemperatureId("SELECT TEMPERATURE_ID FROM TEMPERATURE WHERE TEMPERATURE_VALUE='" + apiInstance.Parser.temperatureValue + "'");
 
             string query = String.Format("INSERT INTO MERGE_PARAMS (MERGE_PARAM_SUNRISE, MERGE_PARAM_SUNSET, MERGE_PARAM_HUMIDITY, MERGE_PARAM_PRESSURE, MERGE_PARAM_CLOUDS_NAME, MERGE_PARAM_VISIBILITY, MERGE_PARAM_LAST_UPDATE, WIND_ID, TEMPERATURE_ID, CITY_ID) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}')",
                 apiInstance.Parser.sunrise, apiInstance.Parser.sunset, apiInstance.Parser.humidity, apiInstance.Parser.pressure, apiInstance.Parser.cloudsName, 0, apiInstance.Parser.lastUpdate, wind_id[0][0], temperature_id[0][0], apiInstance.Parser.cityId);

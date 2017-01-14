@@ -12,7 +12,7 @@ namespace WeatherApp
     {
         static void Main(string[] args)
         {
-            //SingletonDatabaseController.Instance.DbController.Insert("INSERT INTO TEMPERATURES (TEMPERATURE_VALUE, UNIT_ID) VALUES (1, 4);");
+            //SingletonDatabaseController.Instance.DbController.Insert("INSERT INTO TEMPERATURE (TEMPERATURE_VALUE, UNIT_ID) VALUES (1, 4);");
 
             string city = Console.ReadLine();
             string country = Console.ReadLine();
@@ -21,7 +21,7 @@ namespace WeatherApp
             api.Parse();
             api.Insert();
 
-            /*
+            
             Console.WriteLine(SingletonApiParser.Instance.Parser.cityId);
             Console.WriteLine(SingletonApiParser.Instance.Parser.cityName);
             Console.WriteLine(SingletonApiParser.Instance.Parser.cityCoordX);
@@ -40,7 +40,7 @@ namespace WeatherApp
             Console.WriteLine(SingletonApiParser.Instance.Parser.windDirectionName);
             Console.WriteLine(SingletonApiParser.Instance.Parser.cloudsName);
             Console.WriteLine(SingletonApiParser.Instance.Parser.lastUpdate);
-            */
+            
 
             Console.ReadLine();
         }

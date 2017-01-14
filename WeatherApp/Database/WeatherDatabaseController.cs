@@ -9,7 +9,7 @@ namespace WeatherApp.Database
 {
     sealed class WeatherDatabaseController : DatabaseController
     {
-        
+
         public WeatherDatabaseController()
         {
             Initialize();
@@ -17,40 +17,41 @@ namespace WeatherApp.Database
 
         protected override void Initialize()
         {
-            server = "sql7.freemysqlhosting.net";
-            database = "sql7150398";
-            uid = "sql7150398";
-            password = "cLhk8zryBn";
+            server = "mn27.webd.pl";
+            database = "qhoros_weatherApp";
+            uid = "qhoros_wiciok";
+            password = "123aplikacjaTO";
 
             connection = new MySqlConnection(CreateConnectionString());
         }
 
         protected override string CreateConnectionString()
         {
-            string returnDatabaseConnectionString;
+            StringBuilder dBConnectionStringBuilder = new StringBuilder();
+            dBConnectionStringBuilder.Append("SERVER=" + server + ";");
+            dBConnectionStringBuilder.Append("DATABASE=" + database + ";");
+            dBConnectionStringBuilder.Append("UID=" + uid + ";");
+            dBConnectionStringBuilder.Append("PASSWORD=" + password + ";");
 
-            returnDatabaseConnectionString = "SERVER=" + server + ";";
-            returnDatabaseConnectionString += "DATABASE=" + database + ";";
-            returnDatabaseConnectionString += "UID=" + uid + ";";
-            returnDatabaseConnectionString += "PASSWORD=" + password + ";";
 
-            return returnDatabaseConnectionString;
+            return dBConnectionStringBuilder.ToString();
         }
 
         protected override bool OpenConnection()
         {
+            //todo: rethrow wyjątków
             try
             {
                 connection.Open();
                 return true;
             }
-            catch(MySqlException ex)
+            catch (MySqlException ex)
             {
                 // Switch catches most common errors
                 // code error 0 - cannot connect to server
                 // code error 1045 - invalid username and/ord passowrd
 
-                switch(ex.Number)
+                switch (ex.Number)
                 {
                     case 0:
                         Console.WriteLine("Cannot connect to server");
@@ -69,21 +70,22 @@ namespace WeatherApp.Database
 
         protected override bool CloseConnection()
         {
+            //todo: rethrow wyjątków
             try
             {
                 connection.Close();
                 return true;
             }
-            catch(MySqlException ex)
+            catch (MySqlException ex)
             {
                 Console.WriteLine(ex.Message);
                 return false;
             }
         }
 
-        public override void Insert(string query)
+        private void QueryExecute(string query, string queryType)
         {
-            if (!query.ToLower().Contains("insert into"))
+            if (!query.ToLower().Contains(queryType))
             {
                 Console.WriteLine("Invalid format");
                 return;
@@ -95,39 +97,21 @@ namespace WeatherApp.Database
                 cmd.ExecuteNonQuery();
                 CloseConnection();
             }
+        }
 
+        public override void Insert(string query)
+        {
+            QueryExecute(query,"insert into");
         }
 
         public override void Update(string query)
         {
-            if (!query.ToLower().Contains("update"))
-            {
-                Console.WriteLine("Invalid format");
-                return;
-            }
-
-            if (OpenConnection())
-            {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.ExecuteNonQuery();
-                CloseConnection();
-            }
+            QueryExecute(query,"update");
         }
 
         public override void Delete(string query)
         {
-            if (!query.ToLower().Contains("delete from"))
-            {
-                Console.WriteLine("Invalid format");
-                return;
-            }
-
-            if (OpenConnection())
-            {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.ExecuteNonQuery();
-                CloseConnection();
-            }
+            QueryExecute(query, "delete from");
         }
 
         public override List<string>[] Select(string query)
