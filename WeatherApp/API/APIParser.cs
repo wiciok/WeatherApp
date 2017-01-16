@@ -11,136 +11,26 @@ namespace WeatherApp.API
 {
     class APIParser
     {
-        private string cityId;
-        private string cityName;
-        private string cityCoordX;
-        private string cityCoordY;
-        private string countryTag;
-        private string sunrise;
-        private string sunset;
-        private string humidity;
-        private string pressure;
-        private string cloudsName;
-        private string lastUpdate;
-        private string temperatureValue;
-        private string unitName;
-        private string windSpeed;
-        private string windName;
-        private string windDirection;
-        private string windDirectionCode;
-        private string windDirectionName;
-
-
+        public string cityId;
+        public string cityName;
+        public string cityCoordX;
+        public string cityCoordY;
+        public string countryTag;
+        public string sunrise;
+        public string sunset;
+        public string humidity;
+        public string pressure;
+        public string cloudsName;
+        public string lastUpdate;
+        public string temperatureValue;
+        public string unitName;
+        public string windSpeed;
+        public string windName;
+        public string windDirection;
+        public string windDirectionCode;
+        public string windDirectionName;
 
         private XmlReader reader;
-
-        public string CityId
-        {
-            get { return cityId; }
-            set { cityId = value; }
-        }
-
-        public string CityName
-        {
-            get { return cityName; }
-            set { cityName = value; }
-        }
-
-        public string CityCoordX
-        {
-            get { return cityCoordX; }
-            set { cityCoordX = value; }
-        }
-
-        public string CityCoordY
-        {
-            get { return cityCoordY; }
-            set { cityCoordY = value; }
-        }
-
-        public string CountryTag
-        {
-            get { return countryTag; }
-            set { countryTag = value; }
-        }
-
-        public string Sunrise
-        {
-            get { return sunrise; }
-            set { sunrise = value; }
-        }
-
-        public string Sunset
-        {
-            get { return sunset; }
-            set { sunset = value; }
-        }
-
-        public string Humidity
-        {
-            get { return humidity; }
-            set { humidity = value; }
-        }
-
-        public string Pressure
-        {
-            get { return pressure; }
-            set { pressure = value; }
-        }
-
-        public string CloudsName
-        {
-            get { return cloudsName; }
-            set { cloudsName = value; }
-        }
-
-        public string LastUpdate
-        {
-            get { return lastUpdate; }
-            set { lastUpdate = value; }
-        }
-
-        public string TemperatureValue
-        {
-            get { return temperatureValue; }
-            set { temperatureValue = value; }
-        }
-
-        public string UnitName
-        {
-            get { return unitName; }
-            set { unitName = value; }
-        }
-
-        public string WindSpeed
-        {
-            get { return windSpeed; }
-            set { windSpeed = value; }
-        }
-
-        public string WindName
-        {
-            get { return windName; }
-            set { windName = value; }
-        }
-
-        public string WindDirection
-        {
-            get { return windDirection; }
-            set { windDirection = value; }
-        }
-
-        public string WindDirectionCode
-        {
-            get { return windDirectionCode; }
-            set { windDirectionCode = value; }
-        }
-
-        public string WindDirectionName
-        {
-            get { return windDirectionName; }
-            set { windDirectionName = value; }
-        }
 
         private void ParsingAdapter(string xmlRecord, ref string field1)
         {
@@ -175,15 +65,23 @@ namespace WeatherApp.API
             ParsingAdapter("coord", ref cityCoordY, ref cityCoordX);
             ParsingAdapter("sun", ref sunrise, ref sunset);
 
-            //itd. jak wyżej, plus dla temperature i cloud unikalne metody
-            new TemperatureParser().Parse(reader, "temperature", TemperatureValue, UnitName);
+            var temperatureTempArr = new[] { temperatureValue, unitName };
+            ParserTemplate temperatureParser = new TemperatureParser();
+            temperatureParser.Parse(reader, "temperature", ref temperatureTempArr);
+            temperatureValue = temperatureTempArr[0];
+            unitName = temperatureTempArr[1];
 
-            singleParser.Parse(reader, "humidity", Humidity);
-            singleParser.Parse(reader, "pressure", Pressure);
-            doubleParser.Parse(reader, "speed", WindSpeed, WindName);
-            doubleParser.Parse(reader, "direction", WindDirection, WindDirectionCode, WindDirectionName);
-            new CloudParser().Parse(reader, "clouds", CloudsName);
-            singleParser.Parse(reader, "lastupdate", LastUpdate);
+            ParsingAdapter("humidity", ref humidity);
+            ParsingAdapter("pressure", ref pressure);
+            ParsingAdapter("speed", ref windSpeed, ref windName);
+            ParsingAdapter("direction", ref windDirection, ref windDirectionCode, ref windDirectionName);
+
+            var cloudTempArr = new[] { cloudsName };
+            ParserTemplate cloudParser = new CloudParser();
+            cloudParser.Parse(reader, "clouds", ref cloudTempArr);
+            cloudsName = temperatureTempArr[0];
+
+            ParsingAdapter("lastupdate", ref lastUpdate);
         }
 
 

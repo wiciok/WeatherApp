@@ -26,7 +26,7 @@ namespace WeatherApp.API
             link = "http://api.openweathermap.org/data/2.5/weather?q="+city+","+coutry+"&appid="+key+"&mode="+format;
         
             // państwo się nie parsuje
-            SingletonApiParser.Instance.Parser.CountryTag = coutry.ToUpper();
+            SingletonApiParser.Instance.Parser.countryTag = coutry.ToUpper();
         }
 
 
@@ -53,12 +53,12 @@ namespace WeatherApp.API
             if (dbInstance.DbController.Count("SELECT COUNT(*) " +
                                               "FROM COUNTRIES " +
                                               "WHERE COUNTRY_TAG='" + 
-                                              apiInstance.Parser.CountryTag + "'") == 0)
+                                              apiInstance.Parser.countryTag + "'") == 0)
 
                 dbInstance.DbController.Insert("INSERT INTO " +
                                                "COUNTRIES (COUNTRY_TAG) " +
                                                "VALUES ('" + 
-                                               apiInstance.Parser.CountryTag + "')");
+                                               apiInstance.Parser.countryTag + "')");
         }
 
         private void InsertCity(SingletonDatabaseController dbInstance, SingletonApiParser apiInstance)
@@ -66,7 +66,7 @@ namespace WeatherApp.API
             string country_id= dbInstance.DbController.SelectSingleAttributeRecord("SELECT COUNTRY_ID " +
                                                                                    "FROM COUNTRIES " +
                                                                                    "WHERE COUNTRY_TAG='" + 
-                                                                                   apiInstance.Parser.CountryTag + "'", "COUNTRY_ID");
+                                                                                   apiInstance.Parser.countryTag + "'", "COUNTRY_ID");
 
             if(country_id==null)
                 throw new ApplicationException("No DB connection or null returned from query");
@@ -74,13 +74,13 @@ namespace WeatherApp.API
             string query = String.Format("INSERT INTO CITIES " +
                                          "(CITY_ID, CITY_NAME, CITY_COORD_X, CITY_COORD_Y, COUNTRY_ID) " +
                                          "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')",
-                apiInstance.Parser.CityId, 
-                apiInstance.Parser.CityName, 
-                apiInstance.Parser.CityCoordX, 
-                apiInstance.Parser.CityCoordY, 
+                apiInstance.Parser.cityId, 
+                apiInstance.Parser.cityName, 
+                apiInstance.Parser.cityCoordX, 
+                apiInstance.Parser.cityCoordY, 
                 country_id);
 
-            if (dbInstance.DbController.Count("SELECT COUNT(*) FROM CITIES WHERE CITY_NAME='" + apiInstance.Parser.CityName + "'") == 0)
+            if (dbInstance.DbController.Count("SELECT COUNT(*) FROM CITIES WHERE CITY_NAME='" + apiInstance.Parser.cityName + "'") == 0)
                dbInstance.DbController.Insert(query);
         }
 
@@ -89,7 +89,7 @@ namespace WeatherApp.API
             string unit_id = dbInstance.DbController.SelectSingleAttributeRecord("SELECT UNIT_ID " +
                                                                                  "FROM UNITS " +
                                                                                  "WHERE UNIT_NAME='" + 
-                                                                                 apiInstance.Parser.UnitName + "'", "UNIT_ID");
+                                                                                 apiInstance.Parser.unitName + "'", "UNIT_ID");
 
             if (unit_id == null)
                 throw new ApplicationException("No DB connection or null returned from query");
@@ -97,12 +97,12 @@ namespace WeatherApp.API
             string query = String.Format("INSERT INTO TEMPERATURE " +
                                          "(TEMPERATURE_VALUE, UNIT_ID) " +
                                          "VALUES ('{0}', '{1}')",
-                apiInstance.Parser.TemperatureValue, unit_id);
+                apiInstance.Parser.temperatureValue, unit_id);
 
             if (dbInstance.DbController.Count("SELECT COUNT(*) " +
                                               "FROM TEMPERATURE " +
                                               "WHERE TEMPERATURE_VALUE='" + 
-                apiInstance.Parser.TemperatureValue +"'") == 0)
+                apiInstance.Parser.temperatureValue +"'") == 0)
 
                 dbInstance.DbController.Insert(query);
         }
@@ -116,20 +116,20 @@ namespace WeatherApp.API
                                              "WIND_DIRECTION_CODE, " +
                                              "WIND_DIRECTION_NAME) " +
                                          "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')",
-                apiInstance.Parser.WindSpeed, 
-                apiInstance.Parser.WindName, 
-                apiInstance.Parser.WindDirection, 
-                apiInstance.Parser.WindDirectionCode,
-                apiInstance.Parser.WindDirectionName);
+                apiInstance.Parser.windSpeed, 
+                apiInstance.Parser.windName, 
+                apiInstance.Parser.windDirection, 
+                apiInstance.Parser.windDirectionCode,
+                apiInstance.Parser.windDirectionName);
 
             string count_query = String.Format("SELECT COUNT(*) " +
                                                "FROM WINDS " +
                                                "WHERE WIND_SPEED='{0}' " +
                                                "AND WIND_NAME='{1}' " +
                                                "AND WIND_DIRECTION='{2}'",
-                apiInstance.Parser.WindSpeed, 
-                apiInstance.Parser.WindName, 
-                apiInstance.Parser.WindDirection);
+                apiInstance.Parser.windSpeed, 
+                apiInstance.Parser.windName, 
+                apiInstance.Parser.windDirection);
 
             if (dbInstance.DbController.Count(count_query) == 0)
                 dbInstance.DbController.Insert(query);
@@ -142,15 +142,15 @@ namespace WeatherApp.API
                                               "WHERE WIND_SPEED='{0}' " +
                                               "AND WIND_NAME='{1}' " +
                                               "AND WIND_DIRECTION='{2}'", 
-                apiInstance.Parser.WindSpeed, 
-                apiInstance.Parser.WindName, 
-                apiInstance.Parser.WindDirection);
+                apiInstance.Parser.windSpeed, 
+                apiInstance.Parser.windName, 
+                apiInstance.Parser.windDirection);
             string wind_id = dbInstance.DbController.SelectSingleAttributeRecord(wind_query, "WIND_ID");
 
             string temp_query = "SELECT TEMPERATURE_ID " +
                                 "FROM TEMPERATURE " +
                                 "WHERE TEMPERATURE_VALUE='" + 
-                apiInstance.Parser.TemperatureValue + "'";
+                apiInstance.Parser.temperatureValue + "'";
             string temperature_id = dbInstance.DbController.SelectSingleAttributeRecord(temp_query, "TEMPERATURE_ID");
 
 
@@ -166,16 +166,16 @@ namespace WeatherApp.API
                                              "TEMPERATURE_ID, " +
                                              "CITY_ID) " +
                                          "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}')",
-                apiInstance.Parser.Sunrise, 
-                apiInstance.Parser.Sunset, 
-                apiInstance.Parser.Humidity, 
-                apiInstance.Parser.Pressure, 
-                apiInstance.Parser.CloudsName, 
+                apiInstance.Parser.sunrise, 
+                apiInstance.Parser.sunset, 
+                apiInstance.Parser.humidity, 
+                apiInstance.Parser.pressure, 
+                apiInstance.Parser.cloudsName, 
                 0, 
-                apiInstance.Parser.LastUpdate, 
+                apiInstance.Parser.lastUpdate, 
                 wind_id, 
                 temperature_id, 
-                apiInstance.Parser.CityId);
+                apiInstance.Parser.cityId);
 
 
             string count_query =  String.Format("SELECT COUNT(*) " +
@@ -190,16 +190,16 @@ namespace WeatherApp.API
                                                "AND WIND_ID='{7}' " +
                                                "AND TEMPERATURE_ID='{8}' " +
                                                "AND CITY_ID='{9}'",
-                apiInstance.Parser.Sunrise, 
-                apiInstance.Parser.Sunset, 
-                apiInstance.Parser.Humidity, 
-                apiInstance.Parser.Pressure, 
-                apiInstance.Parser.CloudsName, 
+                apiInstance.Parser.sunrise, 
+                apiInstance.Parser.sunset, 
+                apiInstance.Parser.humidity, 
+                apiInstance.Parser.pressure, 
+                apiInstance.Parser.cloudsName, 
                 0, 
-                apiInstance.Parser.LastUpdate, 
+                apiInstance.Parser.lastUpdate, 
                 wind_id, 
                 temperature_id, 
-                apiInstance.Parser.CityId);
+                apiInstance.Parser.cityId);
 
             if (dbInstance.DbController.Count(count_query) == 0)
                 dbInstance.DbController.Insert(query);
