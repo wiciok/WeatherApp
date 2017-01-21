@@ -18,6 +18,9 @@ namespace WeatherApp.API
             Initialize(city, country);
         }
 
+        public APIWeatherController()
+        {}
+
         protected override void Initialize(string city, string coutry)
         {
             key = "9382f55d22f029e00303d1134d77dd9f";

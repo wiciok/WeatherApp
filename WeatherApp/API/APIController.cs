@@ -13,6 +13,11 @@ namespace WeatherApp.API
         protected string format;
 
         protected abstract void Initialize(string city, string country);
+
+        public void Init(string city, string country)
+        {
+            this.Initialize(city, country);
+        }
         public abstract void Parse();
         public abstract void Insert();
     }
