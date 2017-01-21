@@ -45,7 +45,7 @@ namespace WeatherApp
             CloudsNameLabel.Content = SingletonApiParser.Instance.Parser.cloudsName;
             HumidityValueLabel.Content = SingletonApiParser.Instance.Parser.humidity;
             PressureValueLabel.Content = SingletonApiParser.Instance.Parser.pressure;
-            WindNameLabel.Content = SingletonApiParser.Instance.Parser.windName;
+            WindNameValueLabel.Content = SingletonApiParser.Instance.Parser.windName;
             WindSpeedValueLabel.Content = SingletonApiParser.Instance.Parser.windSpeed;
             LastUpdateValueLabel.Content = SingletonApiParser.Instance.Parser.lastUpdate;
         }
@@ -54,6 +54,30 @@ namespace WeatherApp
         {
             api.Init(CityInputTextBox.Text, CountryInputTextBox.Text);
             RefreshWindowContent();
+        }
+
+        private void CityInputTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (CityInputTextBox.Text == "Type city name")
+                CityInputTextBox.Text = "";
+        }
+
+        private void CountryInputTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (CountryInputTextBox.Text == "Type country name")
+                CountryInputTextBox.Text = "";
+        }
+
+        private void CityInputTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (CityInputTextBox.Text == "")
+                CityInputTextBox.Text = "Type city name";
+        }
+
+        private void CountryInputTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (CountryInputTextBox.Text == "")
+                CountryInputTextBox.Text = "Type country name";
         }
     }
 }

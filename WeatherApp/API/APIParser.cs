@@ -79,7 +79,7 @@ namespace WeatherApp.API
             var cloudTempArr = new[] { cloudsName };
             ParserTemplate cloudParser = new CloudParser();
             cloudParser.Parse(reader, "clouds", ref cloudTempArr);
-            cloudsName = temperatureTempArr[0];
+            cloudsName = cloudTempArr[0];
 
             ParsingAdapter("lastupdate", ref lastUpdate);
         }
