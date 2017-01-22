@@ -43,7 +43,7 @@ namespace WeatherApp
             TemperatureLabel.Content = api.StringsFactory.GetTemperatureLabelContent();
             CloudsLabel.Content = api.StringsFactory.GetCloudsLabelContent();
             HumidityLabel.Content = api.StringsFactory.GetHumidityLabelContent();
-            PressureLabel.Content = api.StringsFactory.GetHumidityLabelContent();
+            PressureLabel.Content = api.StringsFactory.GetPressureLabelContent();
             WindNameLabel.Content = api.StringsFactory.GetWindLabelContent();
             WindSpeedLabel.Content = api.StringsFactory.GetWindspeedLabelContent();
             LastUpdateLabel.Content = api.StringsFactory.GetLastUpdateLabelContent();
@@ -63,8 +63,8 @@ namespace WeatherApp
             CountryLabelValue.Content = SingletonApiParser.Instance.Parser.countryTag;
             CityLabelValue.Content = SingletonApiParser.Instance.Parser.cityName;
 
-            TemperatureValueLabel.Content = SingletonApiParser.Instance.Parser.temperatureValue;
-            TemperatureUnitLabel.Content = SingletonApiParser.Instance.Parser.unitName;
+            TemperatureValueLabel.Content = TemperatureSelector.GetTemperatureValue();
+            TemperatureUnitLabel.Content = TemperatureSelector.GetTemperatureUnit();
             CloudsNameLabel.Content = SingletonApiParser.Instance.Parser.cloudsName;
             HumidityValueLabel.Content = SingletonApiParser.Instance.Parser.humidity;
             PressureValueLabel.Content = SingletonApiParser.Instance.Parser.pressure;
@@ -123,6 +123,16 @@ namespace WeatherApp
         {
             if (CountryInputTextBox.Text == "")
                 CountryInputTextBox.Text = api.StringsFactory.GetCountryInputTextBoxText();
+        }
+
+        private void UnitRadioKelvin_Checked(object sender, RoutedEventArgs e)
+        {
+            Settings.tempUnit = TemperatureUnits.Kelvin;
+        }
+
+        private void UnitRadioCelsius_Checked(object sender, RoutedEventArgs e)
+        {
+            Settings.tempUnit = TemperatureUnits.Celsius;
         }
     }
 }

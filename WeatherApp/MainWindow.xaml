@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WeatherApp"
         mc:Ignorable="d"
-        Title="WeatherApp" Height="380" Width="465">
+        Title="WeatherApp" Height="406" Width="465">
     <Grid HorizontalAlignment="Left" 
-          Height="328" 
+          Height="366" 
           Margin="10,10,0,0" 
           VerticalAlignment="Top" 
           Width="433">
-        
+
         <Image x:Name="CloudsImage" 
                HorizontalAlignment="Left" 
                Height="120" 
@@ -20,7 +20,7 @@
                Margin="5,56,0,0" 
                RenderTransformOrigin="0.5,0.5" 
                Stretch="Fill">
-            
+
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -39,36 +39,36 @@
                HorizontalAlignment="Left" VerticalAlignment="Top"
                Margin="220,0,0,0" 
                Height="42" Width="213" FontSize="20"/>
-        
+
         <TextBox x:Name="CityInputTextBox" 
                  HorizontalAlignment="Left" 
                  Height="23" 
-                 Margin="0,273,0,0" 
+                 Margin="0,301,0,0" 
                  TextWrapping="Wrap" 
                  Text="" 
                  VerticalAlignment="Top"
                  Width="215" 
                  GotFocus="CityInputTextBox_GotFocus" 
                  LostFocus="CityInputTextBox_LostFocus"/>
-        
+
         <TextBox x:Name="CountryInputTextBox" 
                  HorizontalAlignment="Left" 
-                 Height="23" Margin="205,273,0,0"
+                 Height="23" Margin="205,301,0,0"
                  TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  Width="228"
                  GotFocus="CountryInputTextBox_GotFocus" 
                  LostFocus="CountryInputTextBox_LostFocus"/>
-        
+
         <Button x:Name="CheckWeatherButton" 
                 Content="Check Weather!"
                 HorizontalAlignment="Left" 
-                Margin="0,301,0,0" 
+                Margin="0,329,0,0" 
                 VerticalAlignment="Top"
                 Width="433" 
                 Height="27"
                 Click="button_Click"/>
-        
+
         <Grid HorizontalAlignment="Left" Height="212" Margin="145,56,0,0" VerticalAlignment="Top" Width="278">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -115,6 +115,8 @@
             <Label x:Name="LastUpdateValueLabel" Content="lastupdt" Grid.Column="1" Grid.Row="6"/>
 
         </Grid>
+        <RadioButton x:Name="UnitRadioKelvin" Content="Kelvin" HorizontalAlignment="Left" Margin="10,205,0,0" VerticalAlignment="Top" IsChecked="True" Checked="UnitRadioKelvin_Checked"/>
+        <RadioButton x:Name="UnitRadioCelsius" Content="Celsius" HorizontalAlignment="Left" Margin="10,225,0,0" VerticalAlignment="Top" Checked="UnitRadioCelsius_Checked" />
 
     </Grid>
 </Window>
