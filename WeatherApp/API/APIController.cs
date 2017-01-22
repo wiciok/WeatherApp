@@ -19,6 +19,8 @@ namespace WeatherApp.API
             this.Initialize(city, country);
         }
         public abstract void Parse();
-        public abstract void Insert();
+        public abstract void InsertToDB();
+
+        public IFactoryFieldNames StringsFactory;
     }
 }

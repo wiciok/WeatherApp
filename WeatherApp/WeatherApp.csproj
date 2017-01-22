@@ -66,10 +66,13 @@
     <Compile Include="API\APIController.cs" />
     <Compile Include="API\APIParser.cs" />
     <Compile Include="API\APIWeatherController.cs" />
+    <Compile Include="API\FactoryFieldNamesEnglish.cs" />
+    <Compile Include="API\IFactoryFieldNames.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="InternetConnectionChecker.cs" />
     <Compile Include="Database\DatabaseController.cs" />
     <Compile Include="API\SingletonApiParser.cs" />
     <Compile Include="Database\SingletonDatabaseController.cs" />

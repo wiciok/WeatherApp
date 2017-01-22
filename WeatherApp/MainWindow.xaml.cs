@@ -22,20 +22,43 @@ namespace WeatherApp
 
     //todo: porozdzielać to jakoś sensownie zgodnie z mvc a nie tak jak teraz wszystko na kupie
 
+
     public partial class MainWindow : Window
     {
         private APIController api;
         public MainWindow()
         {
+
             InitializeComponent();
 
             api = new APIWeatherController();
+            FillConstLabels();
         }
 
-        private void RefreshWindowContent()
+        private void FillConstLabels()
+        {
+            CityLabelValue.Content = api.StringsFactory.GetCityLabelContent();
+            CountryLabelValue.Content = api.StringsFactory.GetCountryLabelContent();
+
+            TemperatureLabel.Content = api.StringsFactory.GetTemperatureLabelContent();
+            CloudsLabel.Content = api.StringsFactory.GetCloudsLabelContent();
+            HumidityLabel.Content = api.StringsFactory.GetHumidityLabelContent();
+            PressureLabel.Content = api.StringsFactory.GetHumidityLabelContent();
+            WindNameLabel.Content = api.StringsFactory.GetWindLabelContent();
+            WindSpeedLabel.Content = api.StringsFactory.GetWindspeedLabelContent();
+            LastUpdateLabel.Content = api.StringsFactory.GetLastUpdateLabelContent();
+
+            CityInputTextBox.Text = api.StringsFactory.GetCityInputTextBoxText();
+            CountryInputTextBox.Text = api.StringsFactory.GetCountryInputTextBoxText();
+
+            CheckWeatherButton.Content = api.StringsFactory.GetCheckweatherButtonContent();
+
+        }
+
+        private void ReloadTemperatureLabels()
         {
             api.Parse();
-            api.Insert();
+            api.InsertToDB();
 
             CountryLabelValue.Content = SingletonApiParser.Instance.Parser.countryTag;
             CityLabelValue.Content = SingletonApiParser.Instance.Parser.cityName;
@@ -47,37 +70,59 @@ namespace WeatherApp
             PressureValueLabel.Content = SingletonApiParser.Instance.Parser.pressure;
             WindNameValueLabel.Content = SingletonApiParser.Instance.Parser.windName;
             WindSpeedValueLabel.Content = SingletonApiParser.Instance.Parser.windSpeed;
+            WindDirectionCodeValueLabel.Content = SingletonApiParser.Instance.Parser.windDirectionCode;
             LastUpdateValueLabel.Content = SingletonApiParser.Instance.Parser.lastUpdate;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            api.Init(CityInputTextBox.Text, CountryInputTextBox.Text);
-            RefreshWindowContent();
+            try
+            {
+                if (CityInputTextBox.Text == "" || CountryInputTextBox.Text == "" 
+                    || CountryInputTextBox.Text == api.StringsFactory.GetCountryInputTextBoxText() 
+                    || CityInputTextBox.Text == api.StringsFactory.GetCityInputTextBoxText())
+                    throw new Exception("City and/or country not properly typed!");
+
+                InternetConnectionChecker.Check();
+
+                api.Init(CityInputTextBox.Text, CountryInputTextBox.Text);
+                ReloadTemperatureLabels();
+            }
+            catch (Exception ex)
+            {
+                string messBoxText = "Exception occured! " + ex.Message + " \n";
+
+                Exception tmp = ex;
+                while (tmp.InnerException != null)
+                {
+                    messBoxText += tmp.Message;
+                }
+                MessageBoxResult errBox = MessageBox.Show(messBoxText,"Exception occured");
+            }
         }
 
         private void CityInputTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (CityInputTextBox.Text == "Type city name")
+            if (CityInputTextBox.Text == api.StringsFactory.GetCityInputTextBoxText())
                 CityInputTextBox.Text = "";
         }
 
         private void CountryInputTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (CountryInputTextBox.Text == "Type country name")
+            if (CountryInputTextBox.Text == api.StringsFactory.GetCountryInputTextBoxText())
                 CountryInputTextBox.Text = "";
         }
 
         private void CityInputTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (CityInputTextBox.Text == "")
-                CityInputTextBox.Text = "Type city name";
+                CityInputTextBox.Text = api.StringsFactory.GetCityInputTextBoxText();
         }
 
         private void CountryInputTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (CountryInputTextBox.Text == "")
-                CountryInputTextBox.Text = "Type country name";
+                CountryInputTextBox.Text = api.StringsFactory.GetCountryInputTextBoxText();
         }
     }
 }
