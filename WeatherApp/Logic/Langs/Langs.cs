@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
- 
 
-namespace WeatherApp
+namespace WeatherApp.Logic.Langs
 {
-    public static class Settings
+    public enum Langs
     {
-        public static TemperatureUnits tempUnit=TemperatureUnits.Kelvin;
+        English, Polish
     }
 }

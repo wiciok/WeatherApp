@@ -20,6 +20,7 @@ namespace WeatherApp.API
         }
         public abstract void Parse();
         public abstract void InsertToDB();
+        public abstract void SetLangFactory();
 
         public IFactoryFieldNames StringsFactory;
         public IFactoryUnitNames UnitStringsFactory;

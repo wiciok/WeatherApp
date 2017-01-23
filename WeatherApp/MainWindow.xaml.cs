@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 //using System.Windows.Shapes;
 using WeatherApp.API;
+using WeatherApp.Logic.Langs;
 
 namespace WeatherApp
 {
@@ -29,10 +30,10 @@ namespace WeatherApp
         private APIController api;
         public MainWindow()
         {
-
+            api = new APIOpenWeatherMapController();
             InitializeComponent();
 
-            api = new APIOpenWeatherMapController();
+            
             FillConstLabels();
             LoadImage("UNKNOWN");
         }
@@ -159,6 +160,29 @@ namespace WeatherApp
         private void UnitRadioCelsius_Checked(object sender, RoutedEventArgs e)
         {
             Settings.tempUnit = TemperatureUnits.Celsius;
+        }
+
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (LangSelectComboBox.SelectedValue != null)
+            {
+                var selectedLang = LangSelectComboBox.SelectedValue.ToString();
+
+                switch (selectedLang)
+                {
+                    case "English":
+                        Settings.lang = Langs.English;
+                        break;
+                    case "Polski":
+                        Settings.lang = Langs.Polish;
+                        break;
+                    default:
+                        throw new Exception("Wrong lang type: " + selectedLang);
+                }
+                api.SetLangFactory();
+                FillConstLabels();
+
+            }
         }
     }
 }

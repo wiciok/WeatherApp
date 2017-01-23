@@ -20,7 +20,5 @@ namespace WeatherApp
                 throw new Exception("No Internet connection!");
             }
         }
-
-
     }
 }

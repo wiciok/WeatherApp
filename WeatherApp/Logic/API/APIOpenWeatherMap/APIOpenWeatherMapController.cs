@@ -8,6 +8,8 @@ using System.Xml;
 using System.Xml.XPath;
 using System.Xml.Linq;
 using WeatherApp.Database;
+using WeatherApp.Logic;
+using WeatherApp.Logic.Langs;
 
 namespace WeatherApp.API
 {
@@ -16,7 +18,6 @@ namespace WeatherApp.API
         public APIOpenWeatherMapController(string city, string country)
         {
             Initialize(city, country);
-            SetStringsFactory();
         }
 
         public APIOpenWeatherMapController()
@@ -24,11 +25,27 @@ namespace WeatherApp.API
             SetStringsFactory();
         }
 
+        public override void SetLangFactory()
+        {
+            SetStringsFactory();
+        }
+
         private void SetStringsFactory()
         {
-            //todo: tutaj mozna zrobic strategie jesli bedzie w programie opcja wyboru języka
-            StringsFactory=new FactoryFieldNamesEnglish();
+            switch (Settings.lang)
+            {
+                case Langs.English:
+                    StringsFactory = new FactoryFieldNamesEnglish();
+                    break;
 
+                case Langs.Polish:
+                    StringsFactory = new FactoryFieldNamesPolish();
+                    break;
+                default:
+                    throw new Exception("Wrong lang type");
+                    break;
+            }
+             
             UnitStringsFactory=new FactoryUnitNamesOpenWeatherMap();
         }
 
@@ -42,6 +59,7 @@ namespace WeatherApp.API
 
             // państwo się nie parsuje
             SingletonApiParser.Instance.Parser.countryTag = coutry.ToUpper();
+            SetStringsFactory();
         }
 
 

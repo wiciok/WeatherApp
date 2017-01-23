@@ -59,26 +59,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="API\FactoryUnitNamesOpenWeatherMap.cs" />
-    <Compile Include="API\IFactoryUnitNames.cs" />
-    <Compile Include="Settings.cs" />
-    <Compile Include="TemperatureSelector.cs" />
+    <Compile Include="Logic\API\APIOpenWeatherMap\FactoryUnitNamesOpenWeatherMap.cs" />
+    <Compile Include="Logic\Langs\FactoryFieldNamesPolish.cs" />
+    <Compile Include="Logic\IFactoryUnitNames.cs" />
+    <Compile Include="Logic\Langs\Langs.cs" />
+    <Compile Include="Logic\Settings.cs" />
+    <Compile Include="Logic\TemperatureSelector.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="API\APIController.cs" />
-    <Compile Include="API\APIParser.cs" />
-    <Compile Include="API\APIOpenWeatherMapController.cs" />
-    <Compile Include="API\FactoryFieldNamesEnglish.cs" />
-    <Compile Include="API\IFactoryFieldNames.cs" />
+    <Compile Include="Logic\API\APIController.cs" />
+    <Compile Include="Logic\API\APIParser.cs" />
+    <Compile Include="Logic\API\APIOpenWeatherMap\APIOpenWeatherMapController.cs" />
+    <Compile Include="Logic\Langs\FactoryFieldNamesEnglish.cs" />
+    <Compile Include="Logic\Langs\IFactoryFieldNames.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="InternetConnectionChecker.cs" />
+    <Compile Include="Logic\InternetConnectionChecker.cs" />
     <Compile Include="Database\DatabaseController.cs" />
-    <Compile Include="API\SingletonApiParser.cs" />
+    <Compile Include="Logic\API\SingletonApiParser.cs" />
     <Compile Include="Database\SingletonDatabaseController.cs" />
     <Compile Include="Database\WeatherDatabaseController.cs" />
     <Compile Include="MainWindow.xaml.cs">

@@ -114,8 +114,32 @@
             <Label x:Name="LastUpdateValueLabel" Grid.Column="1" Grid.Row="6"/>
 
         </Grid>
-        <RadioButton x:Name="UnitRadioKelvin" Content="Kelvin" HorizontalAlignment="Left" Margin="10,205,0,0" VerticalAlignment="Top" IsChecked="True" Checked="UnitRadioKelvin_Checked"/>
-        <RadioButton x:Name="UnitRadioCelsius" Content="Celsius" HorizontalAlignment="Left" Margin="10,225,0,0" VerticalAlignment="Top" Checked="UnitRadioCelsius_Checked" />
+        <RadioButton x:Name="UnitRadioKelvin" 
+                     Content="Kelvin" 
+                     HorizontalAlignment="Left" 
+                     Margin="10,190,0,0" 
+                     VerticalAlignment="Top" 
+                     IsChecked="True" 
+                     Checked="UnitRadioKelvin_Checked"/>
+        <RadioButton x:Name="UnitRadioCelsius" 
+                     Content="Celsius" 
+                     HorizontalAlignment="Left" 
+                     Margin="10,210,0,0" 
+                     VerticalAlignment="Top" 
+                     Checked="UnitRadioCelsius_Checked" />
+
+        <ComboBox x:Name="LangSelectComboBox" 
+                  HorizontalAlignment="Left" 
+                  Margin="0,246,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="125" 
+                  SelectedValuePath="Content"
+                  SelectionChanged="comboBox_SelectionChanged"
+                  >
+
+            <ComboBoxItem IsSelected="True">English</ComboBoxItem>
+            <ComboBoxItem>Polski</ComboBoxItem>
+        </ComboBox>
 
     </Grid>
 </Window>
