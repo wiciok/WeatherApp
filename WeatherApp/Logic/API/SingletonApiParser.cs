@@ -3,33 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeatherApp.Logic.API;
 
 namespace WeatherApp.API
 {
-    class SingletonApiParserOWM
+    class SingletonApiParser
     {
-        private static SingletonApiParserOWM instance;
-        private static APIParserOpenWeatherMap parser;
+        private static SingletonApiParser instance;
+        private static APIParser parser;
 
-        private SingletonApiParserOWM() { }
+        private SingletonApiParser() { }
 
-        public static SingletonApiParserOWM Instance
+        public static SingletonApiParser Instance
         {
             get 
             {
                 if (instance == null)
-                    instance = new SingletonApiParserOWM();
+                    instance = new SingletonApiParser();
 
                 return instance;
             }
         }
 
-        public APIParserOpenWeatherMap Parser
+        public APIParser Parser
         {
             get
             {
                 if (parser == null)
-                    parser = new APIParserOpenWeatherMap();
+                    parser = new APIParserOpenWeatherMap(); //tutaj strategia jesli beda inne api
 
                 return parser;
             }
