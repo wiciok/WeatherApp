@@ -32,7 +32,7 @@ namespace WeatherApp
 
             InitializeComponent();
 
-            api = new APIWeatherController();
+            api = new APIOpenWeatherMapController();
             FillConstLabels();
             LoadImage("UNKNOWN");
         }
@@ -56,7 +56,7 @@ namespace WeatherApp
             CheckWeatherButton.Content = api.StringsFactory.GetCheckweatherButtonContent();
         }
 
-        private void ReloadTemperatureLabels()
+        private void ReloadMeasurementsLabels()
         {
             api.Parse();
             api.InsertToDB();
@@ -75,6 +75,13 @@ namespace WeatherApp
             LastUpdateValueLabel.Content = SingletonApiParser.Instance.Parser.lastUpdate;
 
             LoadImage(CloudsNameLabel.Content.ToString());
+        }
+
+        private void ReloadMeasurementsUnits()
+        {
+            HumidityUnitLabel.Content = api.UnitStringsFactory.GetHumidityUnitLabelContent();
+            PressureUnitLabel.Content = api.UnitStringsFactory.GetPressureUnitLabelContent();
+            WindSpeedUnitLabel.Content = api.UnitStringsFactory.GetWindSpeedUnitLabelContent();
         }
 
         private void LoadImage(string imageName)
@@ -104,7 +111,8 @@ namespace WeatherApp
                 InternetConnectionChecker.Check();
 
                 api.Init(CityInputTextBox.Text, CountryInputTextBox.Text);
-                ReloadTemperatureLabels();
+                ReloadMeasurementsLabels();
+                ReloadMeasurementsUnits();
             }
             catch (Exception ex)
             {

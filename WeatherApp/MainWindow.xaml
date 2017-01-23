@@ -67,7 +67,8 @@
                 VerticalAlignment="Top"
                 Width="433" 
                 Height="27"
-                Click="button_Click"/>
+                Click="button_Click"
+                IsDefault="True"/>
 
         <Grid HorizontalAlignment="Left" Height="212" Margin="145,56,0,0" VerticalAlignment="Top" Width="278">
             <Grid.RowDefinitions>
@@ -85,34 +86,32 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="TemperatureLabel" Content="Temperature" Grid.Column="0" Grid.Row="0"/>
-            <Label x:Name="TemperatureValueLabel" Content="temp" Grid.Column="1" Grid.Row="0"/>
-            <Label x:Name="TemperatureUnitLabel" Content="unit" Grid.Column="2" Grid.Row="0"/>
+            <Label x:Name="TemperatureLabel" Grid.Column="0" Grid.Row="0"/>
+            <Label x:Name="TemperatureValueLabel" Grid.Column="1" Grid.Row="0"/>
+            <Label x:Name="TemperatureUnitLabel" Grid.Column="2" Grid.Row="0"/>
 
 
-            <Label x:Name="CloudsLabel" Content="Clouds" Grid.Column="0" Grid.Row="1"/>
-            <Label x:Name="CloudsNameLabel" Content="clouds" Grid.Column="1" Grid.Row="1"/>
+            <Label x:Name="CloudsLabel" Grid.Column="0" Grid.Row="1"/>
+            <Label x:Name="CloudsNameLabel" Grid.Column="1" Grid.Row="1"/>
 
-            <Label x:Name="HumidityLabel" Content="Humidity" Grid.Column="0" Grid.Row="2"/>
-            <Label x:Name="HumidityValueLabel" Content="humidity" Grid.Column="1" Grid.Row="2"/>
-            <!-- todo: sprawdzic, czy to na pewno są % przy wilgotności-->
-            <Label x:Name="HumidityUnitLabel" Content="%" Grid.Column="2" Grid.Row="2"/>
+            <Label x:Name="HumidityLabel"  Grid.Column="0" Grid.Row="2"/>
+            <Label x:Name="HumidityValueLabel"  Grid.Column="1" Grid.Row="2"/>
+            <Label x:Name="HumidityUnitLabel" Grid.Column="2" Grid.Row="2"/>
 
-            <Label x:Name="PressureLabel" Content="Pressure" Grid.Column="0" Grid.Row="3"/>
-            <Label x:Name="PressureValueLabel" Content="press" Grid.Column="1" Grid.Row="3"/>
-            <Label x:Name="PressureUnitLabel" Content="hPa" Grid.Column="2" Grid.Row="3"/>
+            <Label x:Name="PressureLabel" Grid.Column="0" Grid.Row="3"/>
+            <Label x:Name="PressureValueLabel"  Grid.Column="1" Grid.Row="3"/>
+            <Label x:Name="PressureUnitLabel" Grid.Column="2" Grid.Row="3"/>
 
-            <Label x:Name="WindNameLabel" Content="Wind" Grid.Column="0" Grid.Row="4"/>
-            <Label x:Name="WindNameValueLabel" Content="wind" Grid.Column="1" Grid.Row="4"/>
-            <Label x:Name="WindDirectionCodeValueLabel" Content="" Grid.Column="2" Grid.Row="4"/>
-            <Label x:Name="WindSpeedLabel" Content="Wind Speed" Grid.Column="0" Grid.Row="5"/>
-            <Label x:Name="WindSpeedValueLabel" Content="windspd" Grid.Column="1" Grid.Row="5"/>
-            <!-- todo: sprawdzic czy to są km/h czy m/s-->
-            <Label x:Name="WindSpeedUnitLabel" Content="m/s" Grid.Column="2" Grid.Row="5"/>
+            <Label x:Name="WindNameLabel" Grid.Column="0" Grid.Row="4"/>
+            <Label x:Name="WindNameValueLabel"  Grid.Column="1" Grid.Row="4"/>
+            <Label x:Name="WindDirectionCodeValueLabel"  Grid.Column="2" Grid.Row="4"/>
+            <Label x:Name="WindSpeedLabel"  Grid.Column="0" Grid.Row="5"/>
+            <Label x:Name="WindSpeedValueLabel"  Grid.Column="1" Grid.Row="5"/>
+            <Label x:Name="WindSpeedUnitLabel"  Grid.Column="2" Grid.Row="5"/>
 
 
-            <Label x:Name="LastUpdateLabel" Content="Last update" Grid.Column="0" Grid.Row="6"/>
-            <Label x:Name="LastUpdateValueLabel" Content="lastupdt" Grid.Column="1" Grid.Row="6"/>
+            <Label x:Name="LastUpdateLabel" Grid.Column="0" Grid.Row="6"/>
+            <Label x:Name="LastUpdateValueLabel" Grid.Column="1" Grid.Row="6"/>
 
         </Grid>
         <RadioButton x:Name="UnitRadioKelvin" Content="Kelvin" HorizontalAlignment="Left" Margin="10,205,0,0" VerticalAlignment="Top" IsChecked="True" Checked="UnitRadioKelvin_Checked"/>

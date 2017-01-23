@@ -59,6 +59,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="API\FactoryUnitNamesOpenWeatherMap.cs" />
+    <Compile Include="API\IFactoryUnitNames.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="TemperatureSelector.cs" />
     <Page Include="MainWindow.xaml">
@@ -67,7 +69,7 @@
     </Page>
     <Compile Include="API\APIController.cs" />
     <Compile Include="API\APIParser.cs" />
-    <Compile Include="API\APIWeatherController.cs" />
+    <Compile Include="API\APIOpenWeatherMapController.cs" />
     <Compile Include="API\FactoryFieldNamesEnglish.cs" />
     <Compile Include="API\IFactoryFieldNames.cs" />
     <Compile Include="App.xaml.cs">

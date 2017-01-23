@@ -22,5 +22,6 @@ namespace WeatherApp.API
         public abstract void InsertToDB();
 
         public IFactoryFieldNames StringsFactory;
+        public IFactoryUnitNames UnitStringsFactory;
     }
 }

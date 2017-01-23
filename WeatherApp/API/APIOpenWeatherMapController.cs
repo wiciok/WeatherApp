@@ -11,15 +11,15 @@ using WeatherApp.Database;
 
 namespace WeatherApp.API
 {
-    class APIWeatherController : APIController
+    class APIOpenWeatherMapController : APIController
     {
-        public APIWeatherController(string city, string country)
+        public APIOpenWeatherMapController(string city, string country)
         {
             Initialize(city, country);
             SetStringsFactory();
         }
 
-        public APIWeatherController()
+        public APIOpenWeatherMapController()
         {
             SetStringsFactory();
         }
@@ -28,6 +28,8 @@ namespace WeatherApp.API
         {
             //todo: tutaj mozna zrobic strategie jesli bedzie w programie opcja wyboru języka
             StringsFactory=new FactoryFieldNamesEnglish();
+
+            UnitStringsFactory=new FactoryUnitNamesOpenWeatherMap();
         }
 
         protected override void Initialize(string city, string coutry)
