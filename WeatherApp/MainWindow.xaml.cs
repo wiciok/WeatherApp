@@ -80,7 +80,7 @@ namespace WeatherApp
         {
             try
             {
-                var path = Path.Combine(Environment.CurrentDirectory, "Images", imageName + ".png");
+                var path = Path.Combine(Environment.CurrentDirectory, "../../Images", imageName + ".png");
                 var uri = new Uri(path);
                 var bitmap = new BitmapImage(uri);
                 CloudsImage.Source = bitmap;
