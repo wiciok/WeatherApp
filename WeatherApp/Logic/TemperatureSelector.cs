@@ -20,11 +20,11 @@ namespace WeatherApp
             switch (Settings.tempUnit)
             {
                 case TemperatureUnits.Kelvin:
-                    return SingletonApiParser.Instance.Parser.temperatureValue;
+                    return SingletonApiParserOWM.Instance.Parser.temperatureValue;
                     break;
 
                 case TemperatureUnits.Celsius:
-                    return ConvertFromKelvinToCelsius(SingletonApiParser.Instance.Parser.temperatureValue);
+                    return ConvertFromKelvinToCelsius(SingletonApiParserOWM.Instance.Parser.temperatureValue);
                     break;
                 default:
                     return "";

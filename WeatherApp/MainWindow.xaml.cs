@@ -62,18 +62,18 @@ namespace WeatherApp
             api.Parse();
             api.InsertToDB();
 
-            CountryLabelValue.Content = SingletonApiParser.Instance.Parser.countryTag;
-            CityLabelValue.Content = SingletonApiParser.Instance.Parser.cityName;
+            CountryLabelValue.Content = SingletonApiParserOWM.Instance.Parser.countryTag;
+            CityLabelValue.Content = SingletonApiParserOWM.Instance.Parser.cityName;
 
             TemperatureValueLabel.Content = TemperatureSelector.GetTemperatureValue();
             TemperatureUnitLabel.Content = TemperatureSelector.GetTemperatureUnit();
-            CloudsNameLabel.Content = SingletonApiParser.Instance.Parser.cloudsName;
-            HumidityValueLabel.Content = SingletonApiParser.Instance.Parser.humidity;
-            PressureValueLabel.Content = SingletonApiParser.Instance.Parser.pressure;
-            WindNameValueLabel.Content = SingletonApiParser.Instance.Parser.windName;
-            WindSpeedValueLabel.Content = SingletonApiParser.Instance.Parser.windSpeed;
-            WindDirectionCodeValueLabel.Content = SingletonApiParser.Instance.Parser.windDirectionCode;
-            LastUpdateValueLabel.Content = SingletonApiParser.Instance.Parser.lastUpdate;
+            CloudsNameLabel.Content = SingletonApiParserOWM.Instance.Parser.cloudsName;
+            HumidityValueLabel.Content = SingletonApiParserOWM.Instance.Parser.humidity;
+            PressureValueLabel.Content = SingletonApiParserOWM.Instance.Parser.pressure;
+            WindNameValueLabel.Content = SingletonApiParserOWM.Instance.Parser.windName;
+            WindSpeedValueLabel.Content = SingletonApiParserOWM.Instance.Parser.windSpeed;
+            WindDirectionCodeValueLabel.Content = SingletonApiParserOWM.Instance.Parser.windDirectionCode;
+            LastUpdateValueLabel.Content = SingletonApiParserOWM.Instance.Parser.lastUpdate;
 
             LoadImage(CloudsNameLabel.Content.ToString());
         }

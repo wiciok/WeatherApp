@@ -58,21 +58,21 @@ namespace WeatherApp.API
                    "&mode=" + format;
 
             // państwo się nie parsuje
-            SingletonApiParser.Instance.Parser.countryTag = coutry.ToUpper();
+            SingletonApiParserOWM.Instance.Parser.countryTag = coutry.ToUpper();
             SetStringsFactory();
         }
 
 
         public override void Parse()
         {
-            SingletonApiParser.Instance.Parser.Parse(link);
+            SingletonApiParserOWM.Instance.Parser.Parse(link);
         }
 
 
         public override void InsertToDB()
         {
             SingletonDatabaseController dbInstance = SingletonDatabaseController.Instance;
-            SingletonApiParser apiInstance = SingletonApiParser.Instance;
+            SingletonApiParserOWM apiInstance = SingletonApiParserOWM.Instance;
 
             InsertCountry(dbInstance, apiInstance);
             InsertCity(dbInstance, apiInstance);
@@ -81,7 +81,7 @@ namespace WeatherApp.API
             InsertMerge(dbInstance, apiInstance);
         }
 
-        private void InsertCountry(SingletonDatabaseController dbInstance, SingletonApiParser apiInstance)
+        private void InsertCountry(SingletonDatabaseController dbInstance, SingletonApiParserOWM apiInstance)
         {
             if (dbInstance.DbController.Count("SELECT COUNT(*) " +
                                               "FROM COUNTRIES " +
@@ -94,7 +94,7 @@ namespace WeatherApp.API
                                                apiInstance.Parser.countryTag + "')");
         }
 
-        private void InsertCity(SingletonDatabaseController dbInstance, SingletonApiParser apiInstance)
+        private void InsertCity(SingletonDatabaseController dbInstance, SingletonApiParserOWM apiInstance)
         {
             string country_id = dbInstance.DbController.SelectSingleAttributeRecord("SELECT COUNTRY_ID " +
                                                                                     "FROM COUNTRIES " +
@@ -120,7 +120,7 @@ namespace WeatherApp.API
                 dbInstance.DbController.Insert(query);
         }
 
-        private void InsertTemperature(SingletonDatabaseController dbInstance, SingletonApiParser apiInstance)
+        private void InsertTemperature(SingletonDatabaseController dbInstance, SingletonApiParserOWM apiInstance)
         {
             string unit_id = dbInstance.DbController.SelectSingleAttributeRecord("SELECT UNIT_ID " +
                                                                                  "FROM UNITS " +
@@ -144,7 +144,7 @@ namespace WeatherApp.API
                 dbInstance.DbController.Insert(query);
         }
 
-        private void InsertWind(SingletonDatabaseController dbInstance, SingletonApiParser apiInstance)
+        private void InsertWind(SingletonDatabaseController dbInstance, SingletonApiParserOWM apiInstance)
         {
             string query = String.Format("INSERT INTO WINDS " +
                                          "(WIND_SPEED, " +
@@ -172,7 +172,7 @@ namespace WeatherApp.API
                 dbInstance.DbController.Insert(query);
         }
 
-        private void InsertMerge(SingletonDatabaseController dbInstance, SingletonApiParser apiInstance)
+        private void InsertMerge(SingletonDatabaseController dbInstance, SingletonApiParserOWM apiInstance)
         {
             string wind_query = String.Format("SELECT WIND_ID " +
                                               "FROM WINDS " +

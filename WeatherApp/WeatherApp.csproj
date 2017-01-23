@@ -60,6 +60,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Logic\API\APIOpenWeatherMap\FactoryUnitNamesOpenWeatherMap.cs" />
+    <Compile Include="Logic\API\APIParserAbstract.cs" />
     <Compile Include="Logic\Langs\FactoryFieldNamesPolish.cs" />
     <Compile Include="Logic\IFactoryUnitNames.cs" />
     <Compile Include="Logic\Langs\Langs.cs" />
@@ -70,7 +71,7 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Logic\API\APIController.cs" />
-    <Compile Include="Logic\API\APIParser.cs" />
+    <Compile Include="Logic\API\APIOpenWeatherMap\APIParserOpenWeatherMap.cs" />
     <Compile Include="Logic\API\APIOpenWeatherMap\APIOpenWeatherMapController.cs" />
     <Compile Include="Logic\Langs\FactoryFieldNamesEnglish.cs" />
     <Compile Include="Logic\Langs\IFactoryFieldNames.cs" />
@@ -80,7 +81,7 @@
     </Compile>
     <Compile Include="Logic\InternetConnectionChecker.cs" />
     <Compile Include="Database\DatabaseController.cs" />
-    <Compile Include="Logic\API\SingletonApiParser.cs" />
+    <Compile Include="Logic\API\APIOpenWeatherMap\SingletonApiParserOWM.cs" />
     <Compile Include="Database\SingletonDatabaseController.cs" />
     <Compile Include="Database\WeatherDatabaseController.cs" />
     <Compile Include="MainWindow.xaml.cs">

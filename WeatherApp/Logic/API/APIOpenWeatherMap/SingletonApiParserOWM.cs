@@ -6,30 +6,30 @@ using System.Threading.Tasks;
 
 namespace WeatherApp.API
 {
-    class SingletonApiParser
+    class SingletonApiParserOWM
     {
-        private static SingletonApiParser instance;
-        private static APIParser parser;
+        private static SingletonApiParserOWM instance;
+        private static APIParserOpenWeatherMap parser;
 
-        private SingletonApiParser() { }
+        private SingletonApiParserOWM() { }
 
-        public static SingletonApiParser Instance
+        public static SingletonApiParserOWM Instance
         {
             get 
             {
                 if (instance == null)
-                    instance = new SingletonApiParser();
+                    instance = new SingletonApiParserOWM();
 
                 return instance;
             }
         }
 
-        public APIParser Parser
+        public APIParserOpenWeatherMap Parser
         {
             get
             {
                 if (parser == null)
-                    parser = new APIParser();
+                    parser = new APIParserOpenWeatherMap();
 
                 return parser;
             }
