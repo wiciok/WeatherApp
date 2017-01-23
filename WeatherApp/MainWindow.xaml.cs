@@ -34,6 +34,7 @@ namespace WeatherApp
 
             api = new APIWeatherController();
             FillConstLabels();
+            LoadImage("UNKNOWN");
         }
 
         private void FillConstLabels()
