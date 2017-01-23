@@ -10,7 +10,7 @@ using WeatherApp.Logic.API;
 
 namespace WeatherApp.API
 {
-    class APIParserOpenWeatherMap: APIParserAbstract
+    class APIParserOpenWeatherMap: APIParser
     {
         public new string cityId;
         public new string cityName;

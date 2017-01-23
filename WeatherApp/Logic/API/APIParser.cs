@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace WeatherApp.Logic.API
 {
-    abstract class APIParserAbstract
+    abstract class APIParser
     {
         public string cityName;
         public string countryTag;
