@@ -6,7 +6,7 @@ Oject Technologies classes <br/>
 Final Project 
 
 #Contributors
-Łukasz Maj
+Łukasz Maj<br/>
 Witold Karaś
 
 #Project Specification
