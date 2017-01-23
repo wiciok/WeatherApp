@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+//using System.Windows.Shapes;
 using WeatherApp.API;
 
 namespace WeatherApp
@@ -52,7 +53,6 @@ namespace WeatherApp
             CountryInputTextBox.Text = api.StringsFactory.GetCountryInputTextBoxText();
 
             CheckWeatherButton.Content = api.StringsFactory.GetCheckweatherButtonContent();
-
         }
 
         private void ReloadTemperatureLabels()
@@ -72,6 +72,23 @@ namespace WeatherApp
             WindSpeedValueLabel.Content = SingletonApiParser.Instance.Parser.windSpeed;
             WindDirectionCodeValueLabel.Content = SingletonApiParser.Instance.Parser.windDirectionCode;
             LastUpdateValueLabel.Content = SingletonApiParser.Instance.Parser.lastUpdate;
+
+            LoadImage(CloudsNameLabel.Content.ToString());
+        }
+
+        private void LoadImage(string imageName)
+        {
+            try
+            {
+                var path = Path.Combine(Environment.CurrentDirectory, "Images", imageName + ".png");
+                var uri = new Uri(path);
+                var bitmap = new BitmapImage(uri);
+                CloudsImage.Source = bitmap;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
