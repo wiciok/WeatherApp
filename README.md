@@ -2,7 +2,7 @@
 WPF weather application based on http://openweathermap.org/ API which allow to check weather all accross the globe. User may choose the city and country name, set temperature scale and the program will do the rest.
 
 #Cracow University of Technology
-Oject Technologies classes <br/>
+Object Technologies classes <br/>
 Final Project 
 
 #Contributors
