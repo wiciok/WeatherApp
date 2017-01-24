@@ -19,13 +19,13 @@ namespace WeatherApp.API
         private APIParserOpenWeatherMap parser;
         public APIOpenWeatherMapController(string city, string country)
         {
-            parser = new APIParserOpenWeatherMap();
+            parser = (APIParserOpenWeatherMap)SingletonApiParser.Instance.Parser;
             Initialize(city, country);
         }
 
         public APIOpenWeatherMapController()
         {
-            parser = new APIParserOpenWeatherMap();
+            parser = (APIParserOpenWeatherMap)SingletonApiParser.Instance.Parser;
             SetStringsFactory();
         }
 
@@ -62,7 +62,7 @@ namespace WeatherApp.API
                    "&mode=" + format;
 
             // państwo się nie parsuje
-            parser.countryTag = coutry.ToUpper();
+            parser.CountryTag = coutry.ToUpper();
             SetStringsFactory();
         }
 
@@ -70,21 +70,6 @@ namespace WeatherApp.API
         public override void Parse()
         {
             parser.Parse(link);
-
-            //unfortunately it's necessary, we cannot just do that:
-            //APIParserOpenWeatherMap parser = (APIParserOpenWeatherMap)SingletonApiParser.Instance.Parser;
-            //because it doesn't work - derived class properties don't 'translate' automatically to base class
-
-            SingletonApiParser.Instance.Parser.cityName = parser.cityName;
-            SingletonApiParser.Instance.Parser.countryTag = parser.countryTag;
-            SingletonApiParser.Instance.Parser.humidity = parser.humidity;
-            SingletonApiParser.Instance.Parser.pressure = parser.pressure;
-            SingletonApiParser.Instance.Parser.cloudsName = parser.cloudsName;
-            SingletonApiParser.Instance.Parser.lastUpdate = parser.lastUpdate;
-            SingletonApiParser.Instance.Parser.temperatureValue = parser.temperatureValue;
-            SingletonApiParser.Instance.Parser.windSpeed = parser.windSpeed;
-            SingletonApiParser.Instance.Parser.windName = parser.windName;
-            SingletonApiParser.Instance.Parser.windDirectionCode = parser.windDirectionCode;
         }
 
 
@@ -106,12 +91,12 @@ namespace WeatherApp.API
             if (dbInstance.DbController.Count("SELECT COUNT(*) " +
                                               "FROM COUNTRIES " +
                                               "WHERE COUNTRY_TAG='" +
-                                              parser.countryTag + "'") == 0)
+                                              parser.CountryTag + "'") == 0)
 
                 dbInstance.DbController.Insert("INSERT INTO " +
                                                "COUNTRIES (COUNTRY_TAG) " +
                                                "VALUES ('" +
-                                               parser.countryTag + "')");
+                                               parser.CountryTag + "')");
         }
 
         private void InsertCity(SingletonDatabaseController dbInstance, SingletonApiParser apiInstance)
@@ -119,7 +104,7 @@ namespace WeatherApp.API
             string country_id = dbInstance.DbController.SelectSingleAttributeRecord("SELECT COUNTRY_ID " +
                                                                                     "FROM COUNTRIES " +
                                                                                     "WHERE COUNTRY_TAG='" +
-                                                                                    parser.countryTag + "'",
+                                                                                    parser.CountryTag + "'",
                 "COUNTRY_ID");
 
             if (country_id == null)
@@ -127,16 +112,16 @@ namespace WeatherApp.API
             
             string query = String.Format("INSERT INTO CITIES " +
                                          "(CITY_ID, CITY_NAME, CITY_COORD_X, CITY_COORD_Y, COUNTRY_ID) " +
-                                         "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')",
+                                          "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')",
                 parser.cityId,
-                parser.cityName,
+                parser.CityName,
                 parser.cityCoordX,
                 parser.cityCoordY,
                 country_id);
 
             if (
                 dbInstance.DbController.Count("SELECT COUNT(*) FROM CITIES WHERE CITY_NAME='" +
-                                              parser.cityName + "'") == 0)
+                                              parser.CityName + "'") == 0)
                 dbInstance.DbController.Insert(query);
         }
 
@@ -154,12 +139,12 @@ namespace WeatherApp.API
             string query = String.Format("INSERT INTO TEMPERATURE " +
                                          "(TEMPERATURE_VALUE, UNIT_ID) " +
                                          "VALUES ('{0}', '{1}')",
-                parser.temperatureValue, unit_id);
+                parser.TemperatureValue, unit_id);
 
             if (dbInstance.DbController.Count("SELECT COUNT(*) " +
                                               "FROM TEMPERATURE " +
                                               "WHERE TEMPERATURE_VALUE='" +
-                                              parser.temperatureValue + "'") == 0)
+                                              parser.TemperatureValue + "'") == 0)
 
                 dbInstance.DbController.Insert(query);
         }
@@ -173,10 +158,10 @@ namespace WeatherApp.API
                                          "WIND_DIRECTION_CODE, " +
                                          "WIND_DIRECTION_NAME) " +
                                          "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')",
-                parser.windSpeed,
-                parser.windName,
+                parser.WindSpeed,
+                parser.WindName,
                 parser.windDirection,
-                parser.windDirectionCode,
+                parser.WindDirectionCode,
                 parser.windDirectionName);
 
             string count_query = String.Format("SELECT COUNT(*) " +
@@ -184,8 +169,8 @@ namespace WeatherApp.API
                                                "WHERE WIND_SPEED='{0}' " +
                                                "AND WIND_NAME='{1}' " +
                                                "AND WIND_DIRECTION='{2}'",
-                parser.windSpeed,
-                parser.windName,
+                parser.WindSpeed,
+                parser.WindName,
                 parser.windDirection);
 
             if (dbInstance.DbController.Count(count_query) == 0)
@@ -199,15 +184,15 @@ namespace WeatherApp.API
                                               "WHERE WIND_SPEED='{0}' " +
                                               "AND WIND_NAME='{1}' " +
                                               "AND WIND_DIRECTION='{2}'",
-                parser.windSpeed,
-                parser.windName,
+                parser.WindSpeed,
+                parser.WindName,
                 parser.windDirection);
             string wind_id = dbInstance.DbController.SelectSingleAttributeRecord(wind_query, "WIND_ID");
 
             string temp_query = "SELECT TEMPERATURE_ID " +
                                 "FROM TEMPERATURE " +
                                 "WHERE TEMPERATURE_VALUE='" +
-                                parser.temperatureValue + "'";
+                                parser.TemperatureValue + "'";
             string temperature_id = dbInstance.DbController.SelectSingleAttributeRecord(temp_query, "TEMPERATURE_ID");
 
 
@@ -225,11 +210,11 @@ namespace WeatherApp.API
                                          "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}')",
                 parser.sunrise,
                 parser.sunset,
-                parser.humidity,
-                parser.pressure,
-                parser.cloudsName,
+                parser.Humidity,
+                parser.Pressure,
+                parser.CloudsName,
                 0,
-                parser.lastUpdate,
+                parser.LastUpdate,
                 wind_id,
                 temperature_id,
                 parser.cityId);
@@ -249,11 +234,11 @@ namespace WeatherApp.API
                                                "AND CITY_ID='{9}'",
                 parser.sunrise,
                 parser.sunset,
-                parser.humidity,
-                parser.pressure,
-                parser.cloudsName,
+                parser.Humidity,
+                parser.Pressure,
+                parser.CloudsName,
                 0,
-                parser.lastUpdate,
+                parser.LastUpdate,
                 wind_id,
                 temperature_id,
                 parser.cityId);

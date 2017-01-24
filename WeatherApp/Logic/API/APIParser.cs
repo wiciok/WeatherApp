@@ -10,16 +10,16 @@ namespace WeatherApp.Logic.API
     //shows what parser elements are necessary due to being used in GUI parts of application
     abstract class APIParser
     {
-        public string cityName;
-        public string countryTag;
-        public string humidity;
-        public string pressure;
-        public string cloudsName;
-        public string lastUpdate;
-        public string temperatureValue;
-        public string windSpeed;
-        public string windName;
-        public string windDirectionCode;
+        public abstract string CityName { get; set; }
+        public abstract string CountryTag { get; set; }
+        public abstract string Humidity { get; set; }
+        public abstract string Pressure { get; set; }
+        public abstract string CloudsName { get; set; }
+        public abstract string LastUpdate { get; set; }
+        public abstract string TemperatureValue { get; set; }
+        public abstract string WindSpeed { get; set; }
+        public abstract string WindName { get; set; }
+        public abstract string WindDirectionCode { get; set; }
 
         private XmlReader reader;
 
