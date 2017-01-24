@@ -9,6 +9,7 @@ using System.Xml.XPath;
 using System.Xml.Linq;
 using WeatherApp.Database;
 using WeatherApp.Logic;
+using WeatherApp.Logic.API;
 using WeatherApp.Logic.Langs;
 
 namespace WeatherApp.API
@@ -18,13 +19,13 @@ namespace WeatherApp.API
         private APIParserOpenWeatherMap parser;
         public APIOpenWeatherMapController(string city, string country)
         {
-            parser = (APIParserOpenWeatherMap)SingletonApiParser.Instance.Parser;
+            parser = new APIParserOpenWeatherMap();
             Initialize(city, country);
         }
 
         public APIOpenWeatherMapController()
         {
-            parser = (APIParserOpenWeatherMap)SingletonApiParser.Instance.Parser;
+            parser = new APIParserOpenWeatherMap();
             SetStringsFactory();
         }
 
@@ -69,6 +70,21 @@ namespace WeatherApp.API
         public override void Parse()
         {
             parser.Parse(link);
+
+            //unfortunately it's necessary, we cannot just do that:
+            //APIParserOpenWeatherMap parser = (APIParserOpenWeatherMap)SingletonApiParser.Instance.Parser;
+            //because it doesn't work - derived class properties don't 'translate' automatically to base class
+
+            SingletonApiParser.Instance.Parser.cityName = parser.cityName;
+            SingletonApiParser.Instance.Parser.countryTag = parser.countryTag;
+            SingletonApiParser.Instance.Parser.humidity = parser.humidity;
+            SingletonApiParser.Instance.Parser.pressure = parser.pressure;
+            SingletonApiParser.Instance.Parser.cloudsName = parser.cloudsName;
+            SingletonApiParser.Instance.Parser.lastUpdate = parser.lastUpdate;
+            SingletonApiParser.Instance.Parser.temperatureValue = parser.temperatureValue;
+            SingletonApiParser.Instance.Parser.windSpeed = parser.windSpeed;
+            SingletonApiParser.Instance.Parser.windName = parser.windName;
+            SingletonApiParser.Instance.Parser.windDirectionCode = parser.windDirectionCode;
         }
 
 

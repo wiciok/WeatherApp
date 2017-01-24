@@ -12,24 +12,24 @@ namespace WeatherApp.API
 {
     class APIParserOpenWeatherMap: APIParser
     {
-        public new string cityId;
-        public new string cityName;
-        public new string cityCoordX;
-        public new string cityCoordY;
-        public new string countryTag;
-        public new string sunrise;
-        public new string sunset;
-        public new string humidity;
-        public new string pressure;
-        public new string cloudsName;
-        public new string lastUpdate;
-        public new string temperatureValue;
-        public new string unitName;
-        public new string windSpeed;
-        public new string windName;
-        public new string windDirection;
-        public new string windDirectionCode;
-        public new string windDirectionName;
+        public string cityId;
+        public string cityName;
+        public string cityCoordX;
+        public string cityCoordY;
+        public string countryTag;
+        public string sunrise;
+        public string sunset;
+        public string humidity;
+        public string pressure;
+        public string cloudsName;
+        public string lastUpdate;
+        public string temperatureValue;
+        public string unitName;
+        public string windSpeed;
+        public string windName;
+        public string windDirection;
+        public string windDirectionCode;
+        public string windDirectionName;
 
         private XmlReader reader;
 

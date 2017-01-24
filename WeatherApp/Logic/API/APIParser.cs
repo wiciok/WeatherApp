@@ -7,6 +7,7 @@ using System.Xml;
 
 namespace WeatherApp.Logic.API
 {
+    //shows what parser elements are necessary due to being used in GUI parts of application
     abstract class APIParser
     {
         public string cityName;
